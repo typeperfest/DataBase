@@ -38,6 +38,11 @@ int main()
 			command = getFirstWord(enteringString);
 			if (command == "Help")
 			{
+				if (enteringString != "")
+				{
+					invalid_command_exception exception;
+					throw exception;
+				}
 				cf::helpToKnowCommands();
 			}
 			else if (command == "Create")
