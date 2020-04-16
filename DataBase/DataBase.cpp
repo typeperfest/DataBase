@@ -47,7 +47,29 @@ int main()
 			}
 			else if (command == "Create")
 			{
-				
+				std::string option, basename;
+				if (enteringString[0] == ':')
+				{
+					option = getFirstWord(enteringString);
+					basename = getFirstWord(enteringString);
+				}
+				else
+				{
+					basename = getFirstWord(enteringString);
+				}
+				if (option == "hybrid" && enteringString == "")
+				{
+					cf::createDataBase(basename, true);
+				}
+				else if (option == "" && enteringString == "")
+				{
+					cf::createDataBase(basename, false);
+				}
+				else
+				{
+					invalid_command_exception exception;
+					throw exception;
+				}
 			}
 			else if (command == "Print_Base_List")
 			{
