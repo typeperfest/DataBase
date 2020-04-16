@@ -2,15 +2,7 @@
 #include <string>
 #include <exception>
 #include "consoleFunctions.h"
-
-class invalid_command_exception : protected std::exception 
-{
-public:
-	const char* what()
-	{
-		return "Invalid command, try again";
-	}
-};
+#include "exceptions.h"
 
 int main()
 {
