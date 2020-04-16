@@ -11,8 +11,7 @@ void cf::helpToKnowCommands()
 	// Create
 	std::cout << "Create <option> <string> - creates new data base with name <string>" << std::endl;
 	std::cout << "Options:" << std::endl;
-	std::cout << "           :hybrid - database will be hybrid" <<
-		std::endl << "           :s_type - database will be same-type" << std::endl;
+	std::cout << "           :hybrid - database will be hybrid" << std::endl;
 	std::cout << "           without option - database will be same-type" << DBJMP;
 	// Print_Base_List
 	std::cout << "Print_Base_List - prints all available databases" << std::endl;
@@ -59,4 +58,9 @@ void cf::helpToKnowCommands()
 	std::cout << "Transmit_New_Base <string> - transmits last result of command \"Choose\"" <<
 		" into a new database with name <string>" << std::endl;
 	NOOP;
+}
+
+void cf::createDataBase(std::string& basename, bool type)
+{
+
 }

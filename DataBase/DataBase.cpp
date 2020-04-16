@@ -4,6 +4,25 @@
 #include "consoleFunctions.h"
 #include "exceptions.h"
 
+
+std::string getFirstWord(std::string& string)
+{
+	std::string returningString = "";
+	int stringSize = string.size();
+	int k = 1;
+	while ((string[0] != ' ') && (k <= stringSize))
+	{
+		returningString += string[0];
+		string.erase(0, 1);
+		k++;
+	}
+	if (string[0] == ' ')
+	{
+		string.erase(0, 1);
+	}
+	return returningString;
+}
+
 int main()
 {
 	std::cout << "Welcome, username. This is DataBase of university." << std::endl << std::endl;
@@ -14,16 +33,16 @@ int main()
 	{
 		try
 		{
-			std::string command;
-			std::cin >> command;
+			std::string enteringString, command;
+			std::getline(std::cin, enteringString);
+			command = getFirstWord(enteringString);
 			if (command == "Help")
 			{
 				cf::helpToKnowCommands();
 			}
 			else if (command == "Create")
 			{
-
-
+				
 			}
 			else if (command == "Print_Base_List")
 			{
