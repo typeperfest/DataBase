@@ -57,7 +57,7 @@ int main()
 				{
 					basename = getFirstWord(enteringString);
 				}
-				if (option == "hybrid" && enteringString == "")
+				if (option == ":hybrid" && enteringString == "")
 				{
 					cf::createDataBase(basename, true);
 				}

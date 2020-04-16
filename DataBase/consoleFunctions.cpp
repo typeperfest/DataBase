@@ -1,6 +1,7 @@
 #include "consoleFunctions.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #define BEGCOM std::cout << ">> ";
 #define NOOP std::cout << "Options: None" << std::endl << std::endl
@@ -62,5 +63,9 @@ void cf::helpToKnowCommands()
 
 void cf::createDataBase(std::string& basename, bool type)
 {
-
+	std::string fileName = "Bases/" + basename + ".txt";
+	std::ofstream baseFile;
+	baseFile.open(fileName);
+	baseFile << basename;
+	baseFile.close();
 }
