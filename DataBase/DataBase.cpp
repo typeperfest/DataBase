@@ -4,8 +4,8 @@
 #include <exception>
 
 #define BEGCOM std::cout << ">> ";
-#define NOOP std::cout << "Options: None" << std::endl << std::endl;
-#define DBJMP std::cout << std::endl << std::endl;
+#define NOOP std::cout << "Options: None" << std::endl << std::endl
+#define DBJMP std::endl << std::endl
 
 class invalid_command_exception : protected std::exception 
 {
@@ -22,26 +22,57 @@ void helpToKnowCommands()
 										  "Open", "Save", "Add", "Edit", "Delete_Note", 
 		                                  "Print_Notes", "Sort", "Choose", "Transmit_New_Base" };
 	// Create
-	std::cout << "Create <string> <option> - creates new data base" << std::endl;
+	std::cout << "Create <option> <string> - creates new data base with name <string>" << std::endl;
 	std::cout << "Options:" << std::endl;
 	std::cout << "           :hybrid - database will be hybrid" <<
-		std::endl << "           :s_type - database will be same-type";
-	DBJMP
+		std::endl << "           :s_type - database will be same-type" << std::endl;
+	std::cout << "           without option - database will be same-type" << DBJMP;
 	// Print_Base_List
 	std::cout << "Print_Base_List - prints all available databases" << std::endl;
-	NOOP
+	NOOP;
 	// Delete_Base
 	std::cout << "Delete_Base <basename> - deletes database forever" << std::endl;
-	NOOP
+	NOOP;
 	// Rename
-	std::cout << "Rename <basename> - renames database" << std::endl;
-	NOOP
+	std::cout << "Rename <basename> <string> - renames database with new name <string>" << std::endl;
+	NOOP;
+	// Open
 	std::cout << "Open <basename> - open database to work in" << std::endl;
-	NOOP
+	NOOP;
+	// Save
 	std::cout << "Save <basename> - save databse for continue using" << std::endl;
-	NOOP
-
-}
+	NOOP;
+	// Add
+	std::cout << "Add <basename> <option> <string>  - add new note with name <string>" << std::endl;
+	std::cout << "Options:" << std::endl;
+	std::cout << "           :sh - switch databse to hybrid" << std::endl;
+	std::cout << "           without option - withot switching" << DBJMP;
+	// Edit
+	std::cout << "Edit <basename> - edit existing database" << std::endl;
+	NOOP;
+	// Delete_Note
+	std::cout << "Delete_Note <basename> <notename> - deletes note with name <notename>" << std::endl;
+	NOOP;
+	// Print_Notes
+	std::cout << "Print_Notes <basename> - prints all notes from database" << std::endl;
+	NOOP;
+	// Sort
+	std::cout << "Sort <basename> <option> - sorts all notes in database" << std::endl;
+	std::cout << "Options:" << std::endl;
+	std::cout << "           :byname - sort by name by alphabet" << std::endl;
+	std::cout << "           :bdnumber - sort by number of departments " << std::endl;
+	std::cout << "           you must choose one option" << DBJMP;
+	// Choose
+	std::cout << "Choose <options> <string> - choose notes by rule of option" << std::endl;
+	std::cout << "Options:" << std::endl;
+	std::cout << "           :byles - choose by name of lesson this dep teaches" << std::endl;
+	std::cout << "           :mn - choose all notes had more than n deps " << std::endl;
+	std::cout << "           you must choose one option" << DBJMP;
+	// Transmit_New_Base
+	std::cout << "Transmit_New_Base <string> - transmits last result of command \"Choose\"" <<
+		" into a new database with name <string>" << std::endl;
+	NOOP;
+} 
 
 int main()
 {
@@ -58,72 +89,68 @@ int main()
 			if (command == "Help")
 			{
 				helpToKnowCommands();
-				BEGCOM
 			}
 			else if (command == "Create")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Print_Base_List")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Delete_Base")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Rename")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Open")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Save")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Add")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Edit")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Delete_Note")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Print_Notes")
 			{
 
-				BEGCOM
+
 			}
 			else if (command == "Sort")
 			{
 
-				BEGCOM
 			}
 			else if (command == "Choose")
 			{
 
-				BEGCOM
 			}
 			else if (command == "Transmit_New_Base")
 			{
 
-				BEGCOM
 			}
 			else if (command == "Exit")
 			{
@@ -135,6 +162,7 @@ int main()
 				invalid_command_exception exception;
 				throw exception;
 			}
+			BEGCOM
 		}
 		catch (invalid_command_exception ex)
 		{
