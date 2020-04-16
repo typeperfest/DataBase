@@ -68,4 +68,5 @@ void cf::createDataBase(std::string& basename, bool type)
 	baseFile.open(fileName);
 	baseFile << basename;
 	baseFile.close();
+
 }
