@@ -87,7 +87,7 @@ void cf::printBasesList()
 	}
 }
 
-void deleteBase(std::string& basename)
+void cf::deleteBase(std::string& basename)
 {
-	
+	std::cout << "You got to the delete base" << std::endl;
 }

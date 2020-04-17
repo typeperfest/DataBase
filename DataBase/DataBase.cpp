@@ -95,6 +95,7 @@ int main()
 			}
 			else if (command == "Delete_Base")
 			{
+				std::string basename;
 				if (enteringString == "")
 				{
 					empty_name_exception exception;
@@ -102,7 +103,16 @@ int main()
 				}
 				else
 				{
-					std::string basename = getFirstWord(enteringString);
+					basename = getFirstWord(enteringString);
+				}
+				if (enteringString == "")
+				{
+					cf::deleteBase(basename);
+				}
+				else
+				{
+					invalid_command_exception exception;
+					throw exception;
 				}
 			}
 			else if (command == "Rename")
