@@ -69,7 +69,6 @@ void cf::createDataBase(std::string& basename, bool type)
 	baseFile.open(fileName);
 	baseFile << basename;
 	baseFile.close();
-
 }
 
 void cf::printBasesList()
@@ -89,5 +88,5 @@ void cf::printBasesList()
 
 void cf::deleteBase(std::string& basename)
 {
-	std::cout << "You got to the delete base" << std::endl;
+	std::experimental::filesystem::remove(basename);
 }
