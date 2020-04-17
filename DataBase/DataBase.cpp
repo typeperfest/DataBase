@@ -48,6 +48,11 @@ int main()
 			else if (command == "Create")
 			{
 				std::string option, basename;
+				if (enteringString == "")
+				{
+					empty_name_exception exception;
+					throw exception;
+				}
 				if (enteringString[0] == ':')
 				{
 					option = getFirstWord(enteringString);
@@ -56,6 +61,11 @@ int main()
 				else
 				{
 					basename = getFirstWord(enteringString);
+				}
+				if (basename == "")
+				{
+					empty_name_exception exception;
+					throw exception;
 				}
 				if (option == ":hybrid" && enteringString == "")
 				{
@@ -73,13 +83,27 @@ int main()
 			}
 			else if (command == "Print_Base_List")
 			{
-
-
+				if (enteringString == "")
+				{
+					cf::printBasesList();
+				}
+				else
+				{
+					invalid_command_exception exception;
+					throw exception;
+				}
 			}
 			else if (command == "Delete_Base")
 			{
-
-
+				if (enteringString == "")
+				{
+					empty_name_exception exception;
+					throw exception;
+				}
+				else
+				{
+					std::string basename = getFirstWord(enteringString);
+				}
 			}
 			else if (command == "Rename")
 			{
@@ -141,6 +165,11 @@ int main()
 			std::cout << ">> ";
 		}
 		catch (invalid_command_exception ex)
+		{
+			std::cout << ex.what() << std::endl;
+			std::cout << ">> ";
+		}
+		catch (empty_name_exception ex)
 		{
 			std::cout << ex.what() << std::endl;
 			std::cout << ">> ";

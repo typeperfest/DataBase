@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <filesystem>
 
 #define BEGCOM std::cout << ">> ";
 #define NOOP std::cout << "Options: None" << std::endl << std::endl
@@ -69,4 +70,24 @@ void cf::createDataBase(std::string& basename, bool type)
 	baseFile << basename;
 	baseFile.close();
 
+}
+
+void cf::printBasesList()
+{
+	std::cout << "Saved databases: " << std::endl;
+	bool isThereAny = false;
+	for (auto& iter : std::experimental::filesystem::directory_iterator("Bases"))
+	{
+		isThereAny = true;
+		std::cout << "   " << iter.path() << std::endl;
+	}
+	if (!isThereAny)
+	{
+		std::cout << "There is no any saved databses" << std::endl;
+	}
+}
+
+void deleteBase(std::string& basename)
+{
+	
 }
