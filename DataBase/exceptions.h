@@ -1,7 +1,16 @@
 #pragma once
 #include <exception>
 
-class invalid_command_exception : protected std::exception
+class SYSTEM_OF_BASE_CONTROL_EXCEPTION : protected std::exception
+{
+public:
+	virtual const char* what()
+	{
+		return "Unknown exception";
+	}
+};
+
+class invalid_command_exception : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()
@@ -10,7 +19,7 @@ public:
 	}
 };
 
-class empty_name_exception : protected std::exception
+class empty_name_exception : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()
@@ -19,7 +28,7 @@ public:
 	}
 };
 
-class no_such_file : protected std::exception
+class no_such_file : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()
@@ -28,7 +37,7 @@ public:
 	}
 };
 
-class already_exists : protected std::exception
+class already_exists : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()
