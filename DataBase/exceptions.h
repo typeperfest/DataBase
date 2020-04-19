@@ -6,7 +6,7 @@ class invalid_command_exception : protected std::exception
 public:
 	const char* what()
 	{
-		return "Invalid command, try again";
+		return "Error: invalid command, try again";
 	}
 };
 
@@ -15,7 +15,7 @@ class empty_name_exception : protected std::exception
 public:
 	const char* what()
 	{
-		return "You cannot apply a command with empty name";
+		return "Error: you cannot apply a command with empty name";
 	}
 };
 
@@ -24,6 +24,15 @@ class no_such_file : protected std::exception
 public:
 	const char* what()
 	{
-		return "There is no such file";
+		return "Error: there is no such file with that name";
+	}
+};
+
+class already_exists : protected std::exception
+{
+public:
+	const char* what()
+	{
+		return "Error: file with such name already exists";
 	}
 };

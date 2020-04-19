@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
+#include "exceptions.h"
 
 #define BEGCOM std::cout << ">> ";
 #define NOOP std::cout << "Options: None" << std::endl << std::endl
@@ -64,11 +65,22 @@ void cf::helpToKnowCommands()
 
 void cf::createDataBase(std::string& basename, bool type)
 {
-	std::string fileName = "Bases/" + basename + ".txt";
-	std::ofstream baseFile;
-	baseFile.open(fileName);
-	baseFile << basename;
-	baseFile.close();
+	namespace fs = std::experimental::filesystem;
+	bool isFileExist = fs::exists(fs::status(basename));
+	if (!isFileExist)
+	{
+
+		std::string fileName = "Bases/" + basename + ".txt";
+		std::ofstream baseFile;
+		baseFile.open(fileName);
+		baseFile << basename;
+		baseFile.close();
+	}
+	else
+	{
+		already_exists exception;
+		throw exception;
+	}
 }
 
 void cf::printBasesList()
@@ -88,5 +100,16 @@ void cf::printBasesList()
 
 void cf::deleteBase(std::string& basename)
 {
-	std::experimental::filesystem::remove(basename);
+	namespace fs = std::experimental::filesystem;
+	bool isFileExist = fs::exists(fs::status(basename));
+	if (isFileExist == true)
+	{
+		std::experimental::filesystem::remove(basename);
+		std::cout << "Data base " << basename << " has been successfully removed" << std::endl;
+	}
+	else
+	{
+		no_such_file exception;
+		throw exception;
+	}
 }

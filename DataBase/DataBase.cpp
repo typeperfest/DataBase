@@ -184,6 +184,11 @@ int main()
 			std::cout << ex.what() << std::endl;
 			std::cout << ">> ";
 		}
+		catch (no_such_file ex)
+		{
+			std::cout << ex.what() << std::endl;
+			std::cout << ">> ";
+		}
 	}
 	return 0;
 }
