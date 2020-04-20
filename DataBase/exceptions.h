@@ -4,13 +4,10 @@
 class SYSTEM_OF_BASE_CONTROL_EXCEPTION : protected std::exception
 {
 public:
-	virtual const char* what()
-	{
-		return "Unknown exception";
-	}
+	virtual const char* what() = 0;
 };
 
-class invalid_command_exception : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
+class invalid_command_exception : public SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()
@@ -19,7 +16,7 @@ public:
 	}
 };
 
-class empty_name_exception : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
+class empty_name_exception : public SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()
@@ -28,7 +25,7 @@ public:
 	}
 };
 
-class no_such_file : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
+class no_such_file_exception : public SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()
@@ -37,7 +34,7 @@ public:
 	}
 };
 
-class already_exists : protected SYSTEM_OF_BASE_CONTROL_EXCEPTION
+class already_exists_exception : public SYSTEM_OF_BASE_CONTROL_EXCEPTION
 {
 public:
 	const char* what()

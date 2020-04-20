@@ -75,10 +75,11 @@ void cf::createDataBase(std::string& basename, bool type)
 		baseFile.open(fileName);
 		baseFile << basename;
 		baseFile.close();
+		std::cout << "DataBase " << basename << " has been created successfully" << std::endl;
 	}
 	else
 	{
-		already_exists exception;
+		SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new already_exists_exception;
 		throw exception;
 	}
 }
@@ -96,10 +97,15 @@ void cf::printBasesList()
 	{
 		std::cout << "There is no any saved databses" << std::endl;
 	}
+	else
+	{
+		std::cout << "You can interact with files without typing \"Bases/\" or \".txt\"" << std::endl;
+	}
 }
 
 void cf::deleteBase(std::string& basename)
 {
+	basename = "Bases\\" + basename + ".txt";
 	namespace fs = std::experimental::filesystem;
 	bool isFileExist = fs::exists(fs::status(basename));
 	if (isFileExist == true)
@@ -109,7 +115,7 @@ void cf::deleteBase(std::string& basename)
 	}
 	else
 	{
-		no_such_file exception;
+		SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new no_such_file_exception;
 		throw exception;
 	}
 }

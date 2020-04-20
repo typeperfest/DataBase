@@ -36,21 +36,21 @@ int main()
 			std::string enteringString, command;
 			std::getline(std::cin, enteringString);
 			command = getFirstWord(enteringString);
-			if (command == "Help")
+			if (command == "help")
 			{
 				if (enteringString != "")
 				{
-					invalid_command_exception exception;
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
 					throw exception;
 				}
 				cf::helpToKnowCommands();
 			}
-			else if (command == "Create")
+			else if (command == "create")
 			{
 				std::string option, basename;
 				if (enteringString == "")
 				{
-					empty_name_exception exception;
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new empty_name_exception;
 					throw exception;
 				}
 				if (enteringString[0] == ':')
@@ -64,7 +64,7 @@ int main()
 				}
 				if (basename == "")
 				{
-					empty_name_exception exception;
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new empty_name_exception;
 					throw exception;
 				}
 				if (option == ":hybrid" && enteringString == "")
@@ -77,11 +77,11 @@ int main()
 				}
 				else
 				{
-					invalid_command_exception exception;
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
 					throw exception;
 				}
 			}
-			else if (command == "Print_Base_List")
+			else if (command == "print_base_list")
 			{
 				if (enteringString == "")
 				{
@@ -89,16 +89,16 @@ int main()
 				}
 				else
 				{
-					invalid_command_exception exception;
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
 					throw exception;
 				}
 			}
-			else if (command == "Delete_Base")
+			else if (command == "delete_base")
 			{
 				std::string basename;
 				if (enteringString == "")
 				{
-					empty_name_exception exception;
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
 					throw exception;
 				}
 				else
@@ -111,82 +111,72 @@ int main()
 				}
 				else
 				{
-					invalid_command_exception exception;
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
 					throw exception;
 				}
 			}
-			else if (command == "Rename")
+			else if (command == "rename")
 			{
 
 
 			}
-			else if (command == "Open")
+			else if (command == "open")
 			{
 
 
 			}
-			else if (command == "Save")
+			else if (command == "save")
 			{
 
 
 			}
-			else if (command == "Add")
+			else if (command == "add")
 			{
 
 
 			}
-			else if (command == "Edit")
+			else if (command == "edit")
 			{
 
 
 			}
-			else if (command == "Delete_Note")
+			else if (command == "delete_note")
 			{
 
 
 			}
-			else if (command == "Print_Notes")
+			else if (command == "print_notes")
 			{
 
 
 			}
-			else if (command == "Sort")
+			else if (command == "sort")
 			{
 
 			}
-			else if (command == "Choose")
+			else if (command == "choose")
 			{
 
 			}
-			else if (command == "Transmit_New_Base")
+			else if (command == "transmit_new_base")
 			{
 
 			}
-			else if (command == "Exit")
+			else if (command == "exit")
 			{
 
 				break;
 			}
 			else
 			{
-				invalid_command_exception exception;
+				SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
 				throw exception;
 			}
 			std::cout << ">> ";
 		}
-		catch (invalid_command_exception ex)
+		catch (SYSTEM_OF_BASE_CONTROL_EXCEPTION* ex)
 		{
-			std::cout << ex.what() << std::endl;
-			std::cout << ">> ";
-		}
-		catch (empty_name_exception ex)
-		{
-			std::cout << ex.what() << std::endl;
-			std::cout << ">> ";
-		}
-		catch (no_such_file ex)
-		{
-			std::cout << ex.what() << std::endl;
+			std::cout << ex->what() << std::endl;
 			std::cout << ">> ";
 		}
 	}
