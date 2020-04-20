@@ -120,3 +120,8 @@ void cf::deleteBase(std::string& basename)
 		throw exception;
 	}
 }
+
+void cf::renamebase(std::string& oldbasename, std::string& newbasename)
+{
+	std::cout << "You got to the renamebase" << std::endl;
+}

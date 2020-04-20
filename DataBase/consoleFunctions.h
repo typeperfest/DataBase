@@ -10,4 +10,5 @@ namespace cf
 	void createDataBase(std::string& basename, bool type);
 	void printBasesList();
 	void deleteBase(std::string& basename);
+	void renamebase(std::string& oldbasename, std::string& newbasename);
 }

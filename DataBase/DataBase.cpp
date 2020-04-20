@@ -117,8 +117,28 @@ int main()
 			}
 			else if (command == "rename")
 			{
-
-
+				if (enteringString == "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
+				std::string oldname, newname;
+				oldname = getFirstWord(enteringString);
+				if (enteringString == "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
+				newname = getFirstWord(enteringString);
+				if (enteringString == "")
+				{
+					cf::renamebase(oldname, newname);
+				}
+				else
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 			}
 			else if (command == "open")
 			{
