@@ -164,8 +164,15 @@ int main()
 			}
 			else if (command == "exit")
 			{
-
-				break;
+				if (enteringString == "")
+				{
+					break;
+				}
+				else
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 			}
 			else
 			{
