@@ -92,7 +92,7 @@ void cf::printBasesList()
 	for (auto& iter : std::experimental::filesystem::directory_iterator("Bases"))
 	{
 		isThereAny = true;
-		std::cout << "   " << iter.path() << std::endl;
+		std::cout << "   " << iter.path().filename() << std::endl;
 	}
 	if (!isThereAny)
 	{
@@ -100,7 +100,7 @@ void cf::printBasesList()
 	}
 	else
 	{
-		std::cout << "You can interact with files without typing \"Bases/\" or \".txt\"" << std::endl;
+		std::cout << "You can interact with files without typing \".txt\"" << std::endl;
 	}
 }
 
