@@ -65,8 +65,9 @@ void cf::helpToKnowCommands()
 
 void cf::createDataBase(std::string& basename, bool type)
 {
+	std::string nameForCheck = "Bases\\" + basename + ".txt";
 	namespace fs = std::experimental::filesystem;
-	bool isFileExist = fs::exists(fs::status(basename));
+	bool isFileExist = fs::exists(fs::status(nameForCheck));
 	if (!isFileExist)
 	{
 
