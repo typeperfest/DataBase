@@ -98,15 +98,11 @@ void cf::printBasesList()
 	{
 		std::cout << "There is no any saved databses" << std::endl;
 	}
-	else
-	{
-		std::cout << "You can interact with files without typing \".txt\"" << std::endl;
-	}
 }
 
 void cf::deleteBase(std::string& basename)
 {
-	basename = "Bases\\" + basename + ".txt";
+	basename = "Bases\\" + basename;
 	namespace fs = std::experimental::filesystem;
 	bool isFileExist = fs::exists(fs::status(basename));
 	if (isFileExist == true)
@@ -123,5 +119,28 @@ void cf::deleteBase(std::string& basename)
 
 void cf::renamebase(std::string& oldbasename, std::string& newbasename)
 {
-	std::cout << "You got to the renamebase" << std::endl;
+	oldbasename = "Bases/" + oldbasename;
+	newbasename = "Bases/" + newbasename;
+	namespace fs = std::experimental::filesystem;
+	bool isFileExist = fs::exists(fs::status(oldbasename));
+	if (isFileExist == true)
+	{
+		bool isFileExist = fs::exists(fs::status(newbasename));
+		if (!isFileExist)
+		{
+			fs::rename(oldbasename, newbasename);
+			std::cout << "File " << oldbasename << " has been successfully renamed to "
+				<< newbasename << std::endl;
+		}
+		else
+		{
+			SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new already_exists_exception;
+			throw exception;
+		}
+	}
+	else
+	{
+		SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new no_such_file_exception;
+		throw exception;
+	}
 }
