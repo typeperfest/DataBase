@@ -142,8 +142,22 @@ int main()
 			}
 			else if (command == "open")
 			{
-
-
+				if (enteringString == "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
+				std::string basename;
+				basename = getFirstWord(enteringString);
+				if (enteringString == "")
+				{
+					cf::openBase(basename);
+				}
+				else
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 			}
 			else if (command == "save")
 			{

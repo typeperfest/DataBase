@@ -105,7 +105,7 @@ void cf::deleteBase(std::string& basename)
 	basename = "Bases\\" + basename;
 	namespace fs = std::experimental::filesystem;
 	bool isFileExist = fs::exists(fs::status(basename));
-	if (isFileExist == true)
+	if (isFileExist)
 	{
 		std::experimental::filesystem::remove(basename);
 		std::cout << "Data base " << basename << " has been successfully removed" << std::endl;
@@ -123,7 +123,7 @@ void cf::renamebase(std::string& oldbasename, std::string& newbasename)
 	newbasename = "Bases/" + newbasename;
 	namespace fs = std::experimental::filesystem;
 	bool isFileExist = fs::exists(fs::status(oldbasename));
-	if (isFileExist == true)
+	if (isFileExist)
 	{
 		bool isFileExist = fs::exists(fs::status(newbasename));
 		if (!isFileExist)
@@ -137,6 +137,22 @@ void cf::renamebase(std::string& oldbasename, std::string& newbasename)
 			SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new already_exists_exception;
 			throw exception;
 		}
+	}
+	else
+	{
+		SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new no_such_file_exception;
+		throw exception;
+	}
+}
+
+void cf::openBase(std::string& basename)
+{
+	std::cout << "you got to the openbase" << std::endl;
+	namespace fs = std::experimental::filesystem;
+	bool isFileExist = fs::exists(fs::status(basename));
+	if (isFileExist)
+	{
+
 	}
 	else
 	{

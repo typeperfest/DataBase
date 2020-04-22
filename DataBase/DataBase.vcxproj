@@ -153,10 +153,12 @@
   <ItemGroup>
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="consoleFunctions.cpp" />
+    <ClCompile Include="FacClassesFuncs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="consoleFunctions.h" />
     <ClInclude Include="exceptions.h" />
+    <ClInclude Include="FacultyClasses.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
