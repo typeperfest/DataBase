@@ -12,9 +12,13 @@ protected:
 public:
 	virtual int numberOfless() = 0;
 	virtual std::string getName();
+	virtual void setName(std::string& string);
 	virtual std::string getSciCen();
+	virtual void setSciCen(std::string string);
 	virtual int getNumOfDeps();
+	virtual void setNumOfDeps(const int& value);
 	virtual std::map<std::string, std::map<std::string, int>> getList();
+	virtual void setList(std::map<std::string, std::map<std::string, int>> list);
 };
 
 class Basic_Faculty : public Faculty_Abstract

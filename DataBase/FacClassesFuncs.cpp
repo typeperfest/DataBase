@@ -22,6 +22,26 @@ std::map<std::string, std::map<std::string, int>> Faculty_Abstract::getList()
 	return depList;
 }
 
+void Faculty_Abstract::setName(std::string& string)
+{
+	this->facultyName = string;
+}
+
+void Faculty_Abstract::setSciCen(std::string string)
+{
+	this->ScienceCenter = string;
+}
+
+void Faculty_Abstract::setNumOfDeps(const int& value)
+{
+	this->number_of_deps = value;
+}
+
+void Faculty_Abstract::setList(std::map<std::string, std::map<std::string, int>> list)
+{
+	this->depList = list;
+}
+
 //______________BASIC_FACULTY__________________
 
 int Basic_Faculty::numberOfLess()
