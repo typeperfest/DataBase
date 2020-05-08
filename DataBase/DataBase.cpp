@@ -1,8 +1,12 @@
 ﻿#include <iostream>
 #include <string>
 #include <exception>
+#include <vector>
+
 #include "consoleFunctions.h"
 #include "exceptions.h"
+#include "FacultyClasses.h"
+
 
 
 std::string getFirstWord(std::string& string)
@@ -22,6 +26,8 @@ std::string getFirstWord(std::string& string)
 	}
 	return returningString;
 }
+
+static std::vector<Faculty_Abstract> CURRENT_OPENED_BASE;
 
 int main()
 {
@@ -151,7 +157,7 @@ int main()
 				basename = getFirstWord(enteringString);
 				if (enteringString == "")
 				{
-					cf::openBase(basename);
+					CURRENT_OPENED_BASE = cf::openBase(basename);
 				}
 				else
 				{
@@ -161,7 +167,7 @@ int main()
 			}
 			else if (command == "save")
 			{
-
+				
 
 			}
 			else if (command == "add")

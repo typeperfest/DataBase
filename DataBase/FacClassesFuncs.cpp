@@ -27,7 +27,7 @@ void Faculty_Abstract::setName(std::string& string)
 	this->facultyName = string;
 }
 
-void Faculty_Abstract::setSciCen(std::string string)
+void Faculty_Abstract::setSciCen(std::string& string)
 {
 	this->ScienceCenter = string;
 }
@@ -67,7 +67,12 @@ int Branch_Faculty::numberOfLess()
 	return number;
 }
 
-std::map<std::string, std::string> Branch_Faculty::getBrDepList()
+std::map<std::string, std::map<std::string, int>> Branch_Faculty::getBrDepList()
 {
 	return branchDepList;
+}
+
+void Branch_Faculty::setBrDepList(std::map<std::string, std::map<std::string, int>>& map)
+{
+	this->branchDepList = map;
 }

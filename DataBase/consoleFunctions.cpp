@@ -1,9 +1,12 @@
-#include "consoleFunctions.h"
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <filesystem>
+
+
 #include "exceptions.h"
+#include "consoleFunctions.h"
 
 #define BEGCOM std::cout << ">> ";
 #define NOOP std::cout << "Options: None" << std::endl << std::endl
@@ -145,14 +148,24 @@ void cf::renamebase(std::string& oldbasename, std::string& newbasename)
 	}
 }
 
-void cf::openBase(std::string& basename)
+
+
+std::vector<Faculty_Abstract> cf::openBase(std::string& basename)
 {
 	std::cout << "you got to the openbase" << std::endl;
 	namespace fs = std::experimental::filesystem;
+	basename = "Bases/" + basename;
 	bool isFileExist = fs::exists(fs::status(basename));
 	if (isFileExist)
 	{
-
+		std::vector<Faculty_Abstract> returningVector;
+		std::ifstream reading_base;
+		reading_base.open(basename);
+		std::string reading_string;
+		reading_base >> reading_string;
+		std::cout << reading_string << std::endl;
+		reading_base.close();
+		return returningVector;
 	}
 	else
 	{

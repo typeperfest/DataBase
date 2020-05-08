@@ -10,11 +10,11 @@ protected:
 	int number_of_deps;
 	std::map<std::string, std::map<std::string, int>> depList;
 public:
-	virtual int numberOfless() = 0;
+	virtual int numberOfLess() = 0;
 	virtual std::string getName();
 	virtual void setName(std::string& string);
 	virtual std::string getSciCen();
-	virtual void setSciCen(std::string string);
+	virtual void setSciCen(std::string& string);
 	virtual int getNumOfDeps();
 	virtual void setNumOfDeps(const int& value);
 	virtual std::map<std::string, std::map<std::string, int>> getList();
@@ -27,10 +27,11 @@ public:
 	int numberOfLess();
 };
 
-class Branch_Faculty : protected Faculty_Abstract
+class Branch_Faculty : public Faculty_Abstract
 {
-	std::map<std::string, std::string> branchDepList;
+	std::map<std::string, std::map<std::string, int>> branchDepList;
 public:
 	int numberOfLess();
-	std::map<std::string, std::string> getBrDepList();
+	std::map<std::string, std::map<std::string, int>> getBrDepList();
+	void setBrDepList(std::map<std::string, std::map<std::string, int>>& map);
 };

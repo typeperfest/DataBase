@@ -1,7 +1,9 @@
 #pragma once
+#include <vector>
 #include <iostream>
 #include <string>
 
+#include "FacultyClasses.h"
 
 // cf == console functions 
 namespace cf
@@ -11,5 +13,5 @@ namespace cf
 	void printBasesList();
 	void deleteBase(std::string& basename);
 	void renamebase(std::string& oldbasename, std::string& newbasename);
-	void openBase(std::string& basename);
+	std::vector<Faculty_Abstract> openBase(std::string& basename);
 }
