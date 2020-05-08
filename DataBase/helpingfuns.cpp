@@ -2,59 +2,8 @@
 #include <fstream>
 #include <vector>
 
-Basic_Faculty* readBasFac(std::ifstream& file)
-{
-	Basic_Faculty* returningFac;
-	std::string facname, sciencecenter;
-	int depnumber;
-	file >> facname >> sciencecenter >> depnumber;
-	returningFac->setName(facname);
-	returningFac->setSciCen(sciencecenter);
-	returningFac->setNumOfDeps(depnumber);
-	std::map<std::string, std::map<std::string, int>> deplist;
-	deplist = getCollection(file);
-	returningFac->setList(deplist);
-	return returningFac;
-}
-
-Branch_Faculty* readBrFac(std::ifstream& file)
-{
-	Branch_Faculty* returningFac;
-	std::string facname, sciencecenter;
-	int depnumber;
-	file >> facname >> sciencecenter >> depnumber;
-	returningFac->setName(facname);
-	returningFac->setSciCen(sciencecenter);
-	returningFac->setNumOfDeps(depnumber);
-	std::map<std::string, std::map<std::string, int>> deplist, brDepList;
-	deplist = getCollection(file);
-	returningFac->setList(deplist);
-	brDepList = getCollection(file);
-	returningFac->setBrDepList(brDepList);
-	return returningFac;
-}
-
-Faculty_Abstract* helpingfuncs::get_one_faculty(std::ifstream& file)
-{
-	int type;
-	file >> type;
-	Faculty_Abstract* returningFac;
-	if (type == 1)
-	{
-		Basic_Faculty* faculty = readBasFac(file);
-		returningFac = faculty;
-	}
-	else
-	{
-		Branch_Faculty* faculty = readBrFac(file);
-		returningFac = faculty;
-	}
-	return returningFac;
-}
-
 std::map<std::string, std::map<std::string, int>> getCollection(std::ifstream& file)
 {
-	file.open("base1.txt");
 	std::vector<std::string> brackets;
 	std::string mainstring;
 	file >> mainstring;
@@ -118,3 +67,54 @@ std::map<std::string, std::map<std::string, int>> getCollection(std::ifstream& f
 	}
 	return bigmap;
 }
+
+Basic_Faculty* readBasFac(std::ifstream& file)
+{
+	Basic_Faculty* returningFac = new Basic_Faculty;
+	std::string facname, sciencecenter;
+	int depnumber;
+	file >> facname >> sciencecenter >> depnumber;
+	returningFac->setName(facname);
+	returningFac->setSciCen(sciencecenter);
+	returningFac->setNumOfDeps(depnumber);
+	std::map<std::string, std::map<std::string, int>> deplist;
+	deplist = getCollection(file);
+	returningFac->setList(deplist);
+	return returningFac;
+}
+
+Branch_Faculty* readBrFac(std::ifstream& file)
+{
+	Branch_Faculty* returningFac = new Branch_Faculty;
+	std::string facname, sciencecenter;
+	int depnumber;
+	file >> facname >> sciencecenter >> depnumber;
+	returningFac->setName(facname);
+	returningFac->setSciCen(sciencecenter);
+	returningFac->setNumOfDeps(depnumber);
+	std::map<std::string, std::map<std::string, int>> deplist, brDepList;
+	deplist = getCollection(file);
+	returningFac->setList(deplist);
+	brDepList = getCollection(file);
+	returningFac->setBrDepList(brDepList);
+	return returningFac;
+}
+
+Faculty_Abstract* helpingfuncs::get_one_faculty(std::ifstream& file)
+{
+	int type;
+	file >> type;
+	Faculty_Abstract* returningFac;
+	if (type == 1)
+	{
+		Basic_Faculty* faculty = readBasFac(file);
+		returningFac = faculty;
+	}
+	else
+	{
+		Branch_Faculty* faculty = readBrFac(file);
+		returningFac = faculty;
+	}
+	return returningFac;
+}
+

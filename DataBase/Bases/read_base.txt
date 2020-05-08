@@ -1,0 +1,3 @@
+2
+1 name sciencecenter 2 { { kaf1 { lesson1 3 } { lessonX 1 } } { kaf2 { lesson3 3 } } }
+0 name sciencecenter 2 { { kaf1 { lesson1 3 } { lessonX 1 } } { kaf2 { lesson3 3 } } } { { kaf1 { lesson1 3 } { lessonX 1 } } { kaf2 { lesson3 3 } } }

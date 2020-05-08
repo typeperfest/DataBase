@@ -7,6 +7,7 @@
 
 #include "exceptions.h"
 #include "consoleFunctions.h"
+#include "helpingfunctions.h"
 
 #define BEGCOM std::cout << ">> ";
 #define NOOP std::cout << "Options: None" << std::endl << std::endl
@@ -150,7 +151,7 @@ void cf::renamebase(std::string& oldbasename, std::string& newbasename)
 
 
 
-std::vector<Faculty_Abstract> cf::openBase(std::string& basename)
+std::vector<Faculty_Abstract*> cf::openBase(std::string& basename)
 {
 	std::cout << "you got to the openbase" << std::endl;
 	namespace fs = std::experimental::filesystem;
@@ -158,13 +159,17 @@ std::vector<Faculty_Abstract> cf::openBase(std::string& basename)
 	bool isFileExist = fs::exists(fs::status(basename));
 	if (isFileExist)
 	{
-		std::vector<Faculty_Abstract> returningVector;
-		std::ifstream reading_base;
-		reading_base.open(basename);
-		std::string reading_string;
-		reading_base >> reading_string;
-		std::cout << reading_string << std::endl;
-		reading_base.close();
+		std::vector<Faculty_Abstract*> returningVector;
+		std::ifstream file;
+		file.open(basename);
+		int notesNumber;
+		file >> notesNumber;
+		Faculty_Abstract* newFaculty;
+		for (int i = 0; i < notesNumber; i++)
+		{
+			newFaculty = helpingfuncs::get_one_faculty(file);
+			returningVector.push_back(newFaculty);
+		}
 		return returningVector;
 	}
 	else

@@ -27,7 +27,7 @@ std::string getFirstWord(std::string& string)
 	return returningString;
 }
 
-static std::vector<Faculty_Abstract> CURRENT_OPENED_BASE;
+static std::vector<Faculty_Abstract*> CURRENT_OPENED_BASE;
 
 int main()
 {

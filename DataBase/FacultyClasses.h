@@ -19,11 +19,16 @@ public:
 	virtual void setNumOfDeps(const int& value);
 	virtual std::map<std::string, std::map<std::string, int>> getList();
 	virtual void setList(std::map<std::string, std::map<std::string, int>> list);
+	//______FOR_BRANCH_FACULTY______
+	virtual std::map<std::string, std::map<std::string, int>> getBrDepList() = 0;
+	virtual void setBrDepList(std::map<std::string, std::map<std::string, int>>& map) = 0;
 };
 
 class Basic_Faculty : public Faculty_Abstract
 {
 public:
+	std::map<std::string, std::map<std::string, int>> getBrDepList();
+	void setBrDepList(std::map<std::string, std::map<std::string, int>>& map);
 	int numberOfLess();
 };
 

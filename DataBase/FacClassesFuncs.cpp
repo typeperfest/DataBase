@@ -54,6 +54,17 @@ int Basic_Faculty::numberOfLess()
 	return number;
 }
 
+std::map<std::string, std::map<std::string, int>> Basic_Faculty::getBrDepList()
+{
+	std::map<std::string, std::map<std::string, int>> map;
+	return map;
+}
+
+void Basic_Faculty::setBrDepList(std::map<std::string, std::map<std::string, int>>& map)
+{
+	return;
+}
+
 //______________BRANCH_FACULTIES________________
 
 int Branch_Faculty::numberOfLess()
