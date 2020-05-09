@@ -149,8 +149,6 @@ void cf::renamebase(std::string& oldbasename, std::string& newbasename)
 	}
 }
 
-
-
 std::vector<Faculty_Abstract*> cf::openBase(std::string& basename)
 {
 	std::cout << "you got to the openbase" << std::endl;
@@ -170,11 +168,37 @@ std::vector<Faculty_Abstract*> cf::openBase(std::string& basename)
 			newFaculty = helpingfuncs::get_one_faculty(file);
 			returningVector.push_back(newFaculty);
 		}
+		std::cout << "   ...Got " << notesNumber << " notes..." << std::endl;
+		std::cout << "   Base opened successfully." << std::endl;
 		return returningVector;
 	}
 	else
 	{
 		SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new no_such_file_exception;
 		throw exception;
+	}
+}
+
+void cf::saveBase(std::vector<Faculty_Abstract*>& openedBase, std::string& basename)
+{
+	basename = "Bases/" + basename;
+	std::ofstream file;
+	file.open(basename);
+	int baseSize = openedBase.size();
+	file << baseSize << std::endl;
+	for (int i = 0; i < baseSize; i++)
+	{
+		Faculty_Abstract* currentNote = openedBase[i];
+		file << currentNote->getType() << ' ' << currentNote->getName() << ' '
+			<< currentNote->getSciCen() << ' ' << currentNote->getNumOfDeps() << ' ';
+		file << '{' << ' ';
+		std::map<std::string, std::map<std::string, int>> list = currentNote->getList();
+		helpingfuncs::saveCollection(file, list);
+		if (currentNote->getType() == "0")
+		{
+			list = currentNote->getBrDepList();
+			helpingfuncs::saveCollection(file, list);
+		}
+		file << '\n';
 	}
 }

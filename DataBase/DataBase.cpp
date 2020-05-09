@@ -28,6 +28,7 @@ std::string getFirstWord(std::string& string)
 }
 
 static std::vector<Faculty_Abstract*> CURRENT_OPENED_BASE;
+static std::string OPENED_BASE_FILENAME;
 
 int main()
 {
@@ -158,6 +159,7 @@ int main()
 				if (enteringString == "")
 				{
 					CURRENT_OPENED_BASE = cf::openBase(basename);
+					OPENED_BASE_FILENAME = basename;
 				}
 				else
 				{
@@ -167,8 +169,22 @@ int main()
 			}
 			else if (command == "save")
 			{
-				
-
+				if (enteringString == "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
+				std::string basename;
+				basename = getFirstWord(enteringString);
+				if (enteringString == "")
+				{
+					cf::saveBase(CURRENT_OPENED_BASE, OPENED_BASE_FILENAME);
+				}
+				else
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 			}
 			else if (command == "add")
 			{

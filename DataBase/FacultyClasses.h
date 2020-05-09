@@ -5,12 +5,15 @@
 class Faculty_Abstract
 {
 protected:
+	std::string type;
 	std::string facultyName;
 	std::string ScienceCenter;
 	int number_of_deps;
 	std::map<std::string, std::map<std::string, int>> depList;
 public:
 	virtual int numberOfLess() = 0;
+	virtual std::string getType();
+	virtual void setType(const std::string& string);
 	virtual std::string getName();
 	virtual void setName(std::string& string);
 	virtual std::string getSciCen();

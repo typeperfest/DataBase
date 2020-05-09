@@ -2,6 +2,16 @@
 
 //_____________FACULTY_ABSTRACT_______________
 
+std::string Faculty_Abstract::getType()
+{
+	return type;
+}
+
+void Faculty_Abstract::setType(const std::string& string)
+{
+	this->type = string;
+}
+
 std::string Faculty_Abstract::getName()
 {
 	return facultyName;

@@ -71,6 +71,7 @@ std::map<std::string, std::map<std::string, int>> getCollection(std::ifstream& f
 Basic_Faculty* readBasFac(std::ifstream& file)
 {
 	Basic_Faculty* returningFac = new Basic_Faculty;
+	returningFac->setType("1");
 	std::string facname, sciencecenter;
 	int depnumber;
 	file >> facname >> sciencecenter >> depnumber;
@@ -86,6 +87,7 @@ Basic_Faculty* readBasFac(std::ifstream& file)
 Branch_Faculty* readBrFac(std::ifstream& file)
 {
 	Branch_Faculty* returningFac = new Branch_Faculty;
+	returningFac->setType("0");
 	std::string facname, sciencecenter;
 	int depnumber;
 	file >> facname >> sciencecenter >> depnumber;
@@ -118,3 +120,19 @@ Faculty_Abstract* helpingfuncs::get_one_faculty(std::ifstream& file)
 	return returningFac;
 }
 
+void helpingfuncs::saveCollection(std::ofstream& file, std::map<std::string, std::map<std::string, int>>& list)
+{
+	file << '{' << ' ';
+	for (auto& iter_1 : list)
+	{
+		file << '{' << ' ';
+		file << iter_1.first << ' ';
+		std::map<std::string, int> lowerList = iter_1.second;
+		for (auto& iter_2 : lowerList)
+		{
+			file << '{' << iter_2.first << ' ' << iter_2.second << '}' << ' ';
+		}
+		file << '}' << ' ';
+	}
+	file << '}' << ' ';
+}
