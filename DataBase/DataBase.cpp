@@ -203,26 +203,49 @@ int main()
 				std::cout << "You are going to add note to current database." << std::endl;
 				std::cout << "Answer the questions and follow the instructions..." << std::endl;
 				std::cout << std::endl;
-				Faculty_Abstract* newFaculty = cf::addNote();
+				Faculty_Abstract* newFaculty = cf::createNote();
 				CURRENT_OPENED_BASE.push_back(newFaculty);
+				std::cout << "Note has been added successfully." << std::endl;
 			}
 			else if (command == "edit")
 			{
-
-
+				if (!IS_OPENED_BASE)
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+					throw exception;
+				}
+				std::cout << "You are going to edit note of current database." << std::endl;
+				std::cout << "Answer the questions and follow the instructions..." << std::endl;
+				std::cout << std::endl;
+				cf::editNote(CURRENT_OPENED_BASE);
 			}
 			else if (command == "delete_note")
 			{
-
-
+				if (!IS_OPENED_BASE)
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+					throw exception;
+				}
+				std::cout << "You are going to edit note of current database." << std::endl;
+				std::cout << "Answer the questions and follow the instructions..." << std::endl;
+				cf::deleteNote(CURRENT_OPENED_BASE);
 			}
 			else if (command == "print_notes")
 			{
-
-
+				if (!IS_OPENED_BASE)
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+					throw exception;
+				}
+				cf::printNotes(CURRENT_OPENED_BASE);
 			}
 			else if (command == "sort")
 			{
+				if (!IS_OPENED_BASE)
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+					throw exception;
+				}
 
 			}
 			else if (command == "choose")

@@ -36,10 +36,10 @@ void cf::helpToKnowCommands()
 	std::cout << "save <basename> - save databse for continue using" << std::endl;
 	NOOP;
 	// Add
-	std::cout << "add - add new note to current data base" << std::endl;
+	std::cout << "add - add new note to current opened data base" << std::endl;
 	NOOP;
 	// Edit
-	std::cout << "edit <basename> - edit existing database" << std::endl;
+	std::cout << "edit - edit current opened database" << std::endl;
 	NOOP;
 	// Delete_Note
 	std::cout << "delete_note <basename> <notename> - deletes note with name <notename>" << std::endl;
@@ -212,7 +212,7 @@ void cf::saveBase(std::vector<Faculty_Abstract*>& openedBase, std::string& basen
 	}
 }
 
-Faculty_Abstract* cf::addNote()
+Faculty_Abstract* cf::createNote()
 {
 	Faculty_Abstract* returningFac;
 	std::cout << "  ***Warning! You should enter without spaces!***\n" << std::endl;
@@ -309,7 +309,120 @@ Faculty_Abstract* cf::addNote()
 		bigBrMap = helpingfuncs::enterCollection();
 		returningFac->setBrDepList(bigBrMap);
 	}
-	std::cout << "Successfully added note with name " << returningFac->getName()
+	std::cout << "Note with name \"" << returningFac->getName() << "\" has been created successfully."
 		<< std::endl;
 	return returningFac;
+}
+
+void cf::editNote(std::vector<Faculty_Abstract*>& openedBase)
+{
+	while (true)
+	{
+		try
+		{
+			int notesNumber = openedBase.size();
+			std::cout << "There is " << notesNumber << " notes." << std::endl;
+			for (int i = 0; i < notesNumber; i++)
+			{
+				std::cout << "Note with number " << i << std::endl;
+				std::cout << "     Name of note: " << openedBase[i]->getName() << std::endl;
+			}
+			std::cout << "Select wich note you want to edit\nand enter number of this note" << std::endl;
+			BEGCOM;
+			int numberOfEditingNote;
+			std::string enteringString;
+			std::cin >> enteringString;
+			numberOfEditingNote = stoi(enteringString);
+			if (numberOfEditingNote < 0 || numberOfEditingNote > notesNumber - 1)
+			{
+				SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+				throw exception;
+			}
+			Faculty_Abstract* newNote;
+			newNote = cf::createNote();
+			openedBase[numberOfEditingNote] = newNote;
+			std::cout << "Note in base has been changed successfully." << std::endl;
+			break;
+		}
+		catch (SYSTEM_OF_BASE_CONTROL_EXCEPTION * ex)
+		{
+			std::cout << ex->what() << std::endl;
+			std::cout << "  ...try again...  " << std::endl;
+		}
+		catch (std::invalid_argument ex)
+		{
+			std::cout << " *ENTER A STRING CONVERTABLE TO NUMBER* " << std::endl;
+			std::cout << "  ...try again...  " << std::endl;
+		}
+	}
+}
+
+void cf::deleteNote(std::vector<Faculty_Abstract*>& openedBase)
+{
+	while (true)
+	{
+		try
+		{
+			int notesNumber = openedBase.size();
+			std::cout << "There are " << notesNumber << " notes." << std::endl;
+			for (int i = 0; i < notesNumber; i++)
+			{
+				std::cout << "Note with number " << i << std::endl;
+				std::cout << "     Name of note: " << openedBase[i]->getName() << std::endl;
+			}
+			std::cout << "Select wich note you want to delete\nand enter number of this note" << std::endl;
+			BEGCOM;
+			int numberOfDeletingNote;
+			std::string enteringString;
+			std::cin >> enteringString;
+			numberOfDeletingNote = stoi(enteringString);
+			if (numberOfDeletingNote < 0 || numberOfDeletingNote > notesNumber - 1)
+			{
+				SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+				throw exception;
+			}
+			openedBase.erase(openedBase.begin() + numberOfDeletingNote);
+			std::cout << "Note in base has been deleted successfully." << std::endl;
+			std::cin.ignore();
+			break;
+		}
+		catch (SYSTEM_OF_BASE_CONTROL_EXCEPTION * ex)
+		{
+			std::cout << ex->what() << std::endl;
+			std::cout << "  ...try again...  " << std::endl;
+		}
+		catch (std::invalid_argument ex)
+		{
+			std::cout << " *ENTER A STRING CONVERTABLE TO NUMBER* " << std::endl;
+			std::cout << "  ...try again...  " << std::endl;
+		}
+	}
+}
+
+void cf::printNotes(std::vector<Faculty_Abstract*>& openedBase)
+{
+	int notesNumber = openedBase.size();
+	std::cout << "There are " << notesNumber << " notes." << std::endl;
+	for (int i = 0; i < notesNumber; i++)
+	{
+		Faculty_Abstract* currentNote = openedBase[i];
+		std::cout << "Note with number " << i << std::endl;
+		std::cout << "\tType of faculty: ";
+		if (currentNote->getType() == "1") std::cout << "Basic" << std::endl;
+		else std::cout << "Branch" << std::endl;
+		std::cout << "\tName of faculty: " << currentNote->getName() << std::endl;
+		std::cout << "\tScience center of faculty: " << currentNote->getSciCen() << std::endl;
+		std::cout << "\tNumber of departments of faculty: "
+			<< currentNote->getNumOfDeps() << std::endl;
+		std::cout << "\tList of departments: " << std::endl;
+		for (auto& iter_1 : currentNote->getList())
+		{
+			std::cout << "\t\tDepartment " << iter_1.first << ':' << std::endl;
+			for (auto& iter_2 : iter_1.second)
+			{
+				std::cout << "\t\t\tLessson: " << iter_2.first
+					<< " Teachers: " << iter_2.second << std::endl;
+			}
+		}
+	}
 }
