@@ -1,6 +1,10 @@
 #include "helpingfunctions.h"
 #include <fstream>
+#include <iostream>
 #include <vector>
+#include "exceptions.h"
+
+#define BEGCOM std::cout << ">> "
 
 std::map<std::string, std::map<std::string, int>> getCollection(std::ifstream& file)
 {
@@ -130,9 +134,78 @@ void helpingfuncs::saveCollection(std::ofstream& file, std::map<std::string, std
 		std::map<std::string, int> lowerList = iter_1.second;
 		for (auto& iter_2 : lowerList)
 		{
-			file << '{' << iter_2.first << ' ' << iter_2.second << '}' << ' ';
+			file << '{' << ' ' << iter_2.first << ' ' << iter_2.second << ' ' << '}' << ' ';
 		}
 		file << '}' << ' ';
 	}
 	file << '}' << ' ';
+}
+
+std::map<std::string, std::map<std::string, int>> helpingfuncs::enterCollection()
+{
+	std::map<std::string, std::map<std::string, int>> bigMap;
+	while (true)
+	{
+		try
+		{
+			std::cout << "Now enter number of departments in faculty." << std::endl;
+			BEGCOM;
+			int numberOfDeps;
+			std::cin >> numberOfDeps;
+			if (numberOfDeps == 0)
+			{
+				std::cout << "You sure there is no any departments? Y/n" << std::endl;
+				BEGCOM;
+				std::string command;
+				std::cin >> command;
+				if (command == "Y")
+				{
+					break;
+				}
+				else
+				{
+					std::cout << "  ...try again then...  " << std::endl;
+					continue;
+				}
+			}
+			else
+			{
+				for (int i = 1; i < numberOfDeps + 1; i++)
+				{
+					std::cout << "Enter name of " << i << " department" << std::endl;
+					BEGCOM;
+					std::string string;
+					std::cin >> string;
+					if (string == "")
+					{
+						SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+						throw exception;
+					}
+					std::cout << "Enter number of lessons in current department and after that \n enter";
+					std::cout << " number of teachers teching this lesson in pair over the space.\n";
+					BEGCOM;
+					int numberOfLes;
+					std::cin >> numberOfLes;
+					std::map<std::string, int> lowerMap;
+					for (int i = 0; i < numberOfLes; i++)
+					{
+						int numberOfTeachers;
+						std::string lessonName;
+						std::cin >> lessonName >> numberOfTeachers;
+						lowerMap[lessonName] = numberOfTeachers;
+					}
+					std::cin.ignore();
+					bigMap[string] = lowerMap;
+					lowerMap.clear();
+				}
+				break;
+			}
+		}
+		catch (SYSTEM_OF_BASE_CONTROL_EXCEPTION * ex)
+		{
+			std::cout << ex->what() << std::endl;
+			std::cout << " ...try again... " << std::endl;
+		}
+	}
+	return bigMap;
 }

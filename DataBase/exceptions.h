@@ -42,3 +42,12 @@ public:
 		return "Error: file with such name already exists";
 	}
 };
+
+class doesnt_opened_exception : public SYSTEM_OF_BASE_CONTROL_EXCEPTION
+{
+public:
+	const char* what()
+	{
+		return "Error: there is no opened database";
+	}
+};

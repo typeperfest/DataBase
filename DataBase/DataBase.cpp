@@ -29,6 +29,7 @@ std::string getFirstWord(std::string& string)
 
 static std::vector<Faculty_Abstract*> CURRENT_OPENED_BASE;
 static std::string OPENED_BASE_FILENAME;
+static bool IS_OPENED_BASE = false;
 
 int main()
 {
@@ -158,8 +159,9 @@ int main()
 				basename = getFirstWord(enteringString);
 				if (enteringString == "")
 				{
-					CURRENT_OPENED_BASE = cf::openBase(basename);
 					OPENED_BASE_FILENAME = basename;
+					CURRENT_OPENED_BASE = cf::openBase(basename);
+					IS_OPENED_BASE = true;
 				}
 				else
 				{
@@ -178,7 +180,12 @@ int main()
 				basename = getFirstWord(enteringString);
 				if (enteringString == "")
 				{
-					cf::saveBase(CURRENT_OPENED_BASE, OPENED_BASE_FILENAME);
+					if (!IS_OPENED_BASE)
+					{
+						SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+						throw exception;
+					}
+					cf::saveBase(CURRENT_OPENED_BASE, basename);
 				}
 				else
 				{
@@ -188,8 +195,16 @@ int main()
 			}
 			else if (command == "add")
 			{
-
-
+				if (!IS_OPENED_BASE)
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+					throw exception;
+				}
+				std::cout << "You are going to add note to current database." << std::endl;
+				std::cout << "Answer the questions and follow the instructions..." << std::endl;
+				std::cout << std::endl;
+				Faculty_Abstract* newFaculty = cf::addNote();
+				CURRENT_OPENED_BASE.push_back(newFaculty);
 			}
 			else if (command == "edit")
 			{

@@ -3,13 +3,13 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
-
+#include <exception>
 
 #include "exceptions.h"
 #include "consoleFunctions.h"
 #include "helpingfunctions.h"
 
-#define BEGCOM std::cout << ">> ";
+#define BEGCOM std::cout << ">> "
 #define NOOP std::cout << "Options: None" << std::endl << std::endl
 #define DBJMP std::endl << std::endl
 
@@ -36,10 +36,8 @@ void cf::helpToKnowCommands()
 	std::cout << "save <basename> - save databse for continue using" << std::endl;
 	NOOP;
 	// Add
-	std::cout << "add <basename> <option> <string>  - add new note with name <string>" << std::endl;
-	std::cout << "options:" << std::endl;
-	std::cout << "           :sh - switch databse to hybrid" << std::endl;
-	std::cout << "           without option - withot switching" << DBJMP;
+	std::cout << "add - add new note to current data base" << std::endl;
+	NOOP;
 	// Edit
 	std::cout << "edit <basename> - edit existing database" << std::endl;
 	NOOP;
@@ -181,24 +179,137 @@ std::vector<Faculty_Abstract*> cf::openBase(std::string& basename)
 
 void cf::saveBase(std::vector<Faculty_Abstract*>& openedBase, std::string& basename)
 {
+	namespace fs = std::experimental::filesystem;
 	basename = "Bases/" + basename;
-	std::ofstream file;
-	file.open(basename);
-	int baseSize = openedBase.size();
-	file << baseSize << std::endl;
-	for (int i = 0; i < baseSize; i++)
+	bool isFileExist = fs::exists(fs::status(basename));
+	if (isFileExist)
 	{
-		Faculty_Abstract* currentNote = openedBase[i];
-		file << currentNote->getType() << ' ' << currentNote->getName() << ' '
-			<< currentNote->getSciCen() << ' ' << currentNote->getNumOfDeps() << ' ';
-		file << '{' << ' ';
-		std::map<std::string, std::map<std::string, int>> list = currentNote->getList();
-		helpingfuncs::saveCollection(file, list);
-		if (currentNote->getType() == "0")
+		std::ofstream file;
+		file.open(basename);
+		int baseSize = openedBase.size();
+		file << baseSize << std::endl;
+		for (int i = 0; i < baseSize; i++)
 		{
-			list = currentNote->getBrDepList();
+			Faculty_Abstract* currentNote = openedBase[i];
+			file << currentNote->getType() << ' ' << currentNote->getName() << ' '
+				<< currentNote->getSciCen() << ' ' << currentNote->getNumOfDeps() << ' ';
+			std::map<std::string, std::map<std::string, int>> list = currentNote->getList();
 			helpingfuncs::saveCollection(file, list);
+			if (currentNote->getType() == "0")
+			{
+				list = currentNote->getBrDepList();
+				helpingfuncs::saveCollection(file, list);
+			}
+			file << '\n';
 		}
-		file << '\n';
+		file.close();
+		std::cout << "Base saved successfully in file " << basename << std::endl;
 	}
+	else
+	{
+		SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new no_such_file_exception;
+		throw exception;
+	}
+}
+
+Faculty_Abstract* cf::addNote()
+{
+	Faculty_Abstract* returningFac;
+	std::cout << "  ***Warning! You should enter without spaces!***\n" << std::endl;
+	while (true)
+	{
+		try
+		{
+			std::cout << "Enter \"1\" if you want to faculty be a basic, or \"0\" to be a branch.\n";
+			std::cout << ">> ";
+			std::string command;
+			std::cin >> command;
+			if (command == "1")
+			{
+				returningFac = new Basic_Faculty;
+				returningFac->setType("1");
+				break;
+			}
+			else if (command == "0")
+			{
+				returningFac = new Branch_Faculty;
+				returningFac->setType("0");
+				break;
+			}
+			else
+			{
+				SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+				throw exception;
+			}
+		}
+		catch (SYSTEM_OF_BASE_CONTROL_EXCEPTION* ex)
+		{
+			std::cout << ex->what() << std::endl;
+			std::cout << " ...try again... " << std::endl;
+		}
+	}
+	while (true)
+	{
+		try
+		{
+			std::cout << "Enter name of faculty. \n";
+			std::cout << ">> ";
+			std::string command;
+			std::cin >> command;
+			if (command == "")
+			{
+				SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+				throw exception;
+			}
+			else
+			{
+				returningFac->setName(command);
+				break;
+			}
+		}
+		catch (SYSTEM_OF_BASE_CONTROL_EXCEPTION * ex)
+		{
+			std::cout << ex->what() << std::endl;
+			std::cout << " ...try again... " << std::endl;
+		}
+	}
+	while (true)
+	{
+		try
+		{
+			std::cout << "Enter name of science center. \n";
+			std::cout << ">> ";
+			std::string command;
+			std::cin >> command;
+			if (command == "")
+			{
+				SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+				throw exception;
+			}
+			else
+			{
+				returningFac->setSciCen(command);
+				break;
+			}
+		}
+		catch (SYSTEM_OF_BASE_CONTROL_EXCEPTION * ex)
+		{
+			std::cout << ex->what() << std::endl;
+			std::cout << " ...try again... " << std::endl;
+		}
+	}
+	std::map<std::string, std::map<std::string, int>> bigMap;
+	bigMap = helpingfuncs::enterCollection();
+	returningFac->setList(bigMap);
+	int numberOfDeps = bigMap.size();
+	returningFac->setNumOfDeps(numberOfDeps);
+	if (returningFac->getType() == "0")
+	{
+		std::map<std::string, std::map<std::string, int>> bigBrMap;
+		bigBrMap = helpingfuncs::enterCollection();
+		returningFac->setBrDepList(bigBrMap);
+	}
+	std::cout << "Successfully added note with name " << returningFac->getName()
+		<< std::endl;
+	return returningFac;
 }

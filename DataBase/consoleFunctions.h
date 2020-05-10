@@ -15,4 +15,5 @@ namespace cf
 	void renamebase(std::string& oldbasename, std::string& newbasename);
 	std::vector<Faculty_Abstract*> openBase(std::string& basename);
 	void saveBase(std::vector<Faculty_Abstract*>& openedBase, std::string& basename);
+	Faculty_Abstract* addNote();
 }
