@@ -266,11 +266,52 @@ int main()
 					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
 					throw exception;
 				}
-
+				std::string option, direction;
+				if (enteringString[0] == ':')
+				{
+					option = getFirstWord(enteringString);
+					direction = getFirstWord(enteringString);
+					if (getFirstWord(enteringString) != "")
+					{
+						SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+						throw exception;
+					}
+				}
+				else
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
+				if (direction == "inc" || direction == "dec")
+				{
+					if (option == ":byname" || option == ":bdnumber")
+					{
+						if (option == ":byname")
+						{
+							direction == "inc" ? cf::sortByName(CURRENT_OPENED_BASE, true) :
+								cf::sortByName(CURRENT_OPENED_BASE, false);
+						}
+						else
+						{
+							direction == "inc" ? cf::sortByBdNumber(CURRENT_OPENED_BASE, true) :
+								cf::sortByBdNumber(CURRENT_OPENED_BASE, false);
+						}
+					}
+					else
+					{
+						SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+						throw exception;
+					}
+				}
+				else
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 			}
 			else if (command == "choose")
 			{
-
+				
 			}
 			else if (command == "transmit_new_base")
 			{

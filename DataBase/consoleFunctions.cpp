@@ -149,7 +149,6 @@ void cf::renamebase(std::string& oldbasename, std::string& newbasename)
 
 std::vector<Faculty_Abstract*> cf::openBase(std::string& basename)
 {
-	std::cout << "you got to the openbase" << std::endl;
 	namespace fs = std::experimental::filesystem;
 	basename = "Bases/" + basename;
 	bool isFileExist = fs::exists(fs::status(basename));
@@ -438,4 +437,40 @@ void cf::printNotes(std::vector<Faculty_Abstract*>& openedBase)
 			}
 		}
 	}
+}
+
+bool byNameSortingFunction_inc(Faculty_Abstract* i, Faculty_Abstract* j)
+{
+	return (i->getName() < j->getName());
+}
+
+bool byNameSortingFunction_dec(Faculty_Abstract* i, Faculty_Abstract* j)
+{
+	return (i->getName() > j->getName());
+}
+
+void cf::sortByName(std::vector<Faculty_Abstract*>& openedBase, const bool& direction)
+{
+	if (direction) std::sort(openedBase.begin(), openedBase.end(), byNameSortingFunction_inc);
+	else std::sort(openedBase.begin(), openedBase.end(), byNameSortingFunction_dec);
+	std::cout << "Notes have been sorted successfully by names. " << std::endl;
+	std::cout << "\t \"print_notes\" to check" << std::endl;
+}
+
+bool ByNumberSortingFunction_inc(Faculty_Abstract* i, Faculty_Abstract* j)
+{
+	return (i->getNumOfDeps() < j->getNumOfDeps());
+}
+
+bool ByNumberSortingFunction_dec(Faculty_Abstract* i, Faculty_Abstract* j)
+{
+	return (i->getNumOfDeps() > j->getNumOfDeps());
+}
+
+void cf::sortByBdNumber(std::vector<Faculty_Abstract*>& openedBase, const bool& direction)
+{
+	if (direction) std::sort(openedBase.begin(), openedBase.end(), ByNumberSortingFunction_inc);
+	else std::sort(openedBase.begin(), openedBase.end(), ByNumberSortingFunction_dec);
+	std::cout << "Notes have been sorted successfully by numbers of departents. " << std::endl;
+	std::cout << "\t \"print_notes\" to check" << std::endl;
 }

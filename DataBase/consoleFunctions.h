@@ -19,4 +19,6 @@ namespace cf
 	void editNote(std::vector<Faculty_Abstract*>& openedBase);
 	void deleteNote(std::vector<Faculty_Abstract*>& openedBase);
 	void printNotes(std::vector<Faculty_Abstract*>& openedBase);
+	void sortByName(std::vector<Faculty_Abstract*>& openedBase, const bool& direction);
+	void sortByBdNumber(std::vector<Faculty_Abstract*>& openedBase, const bool& direction);
 }
