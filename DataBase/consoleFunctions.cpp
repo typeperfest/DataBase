@@ -45,10 +45,10 @@ void cf::helpToKnowCommands()
 	std::cout << "delete_note <basename> <notename> - deletes note with name <notename>" << std::endl;
 	NOOP;
 	// Print_Notes
-	std::cout << "print_notes <basename> - prints all notes from database" << std::endl;
+	std::cout << "print_notes <basename> - prints all notes from current opened database" << std::endl;
 	NOOP;
 	// Sort
-	std::cout << "sort <basename> <option> - sorts all notes in database" << std::endl;
+	std::cout << "sort <option> <inc/dec>- sorts all notes in current opened database" << std::endl;
 	std::cout << "options:" << std::endl;
 	std::cout << "           :byname - sort by name by alphabet" << std::endl;
 	std::cout << "           :bdnumber - sort by number of departments " << std::endl;
@@ -422,6 +422,19 @@ void cf::printNotes(std::vector<Faculty_Abstract*>& openedBase)
 			{
 				std::cout << "\t\t\tLessson: " << iter_2.first
 					<< " Teachers: " << iter_2.second << std::endl;
+			}
+		}
+		if (currentNote->getType() == "0")
+		{
+			std::cout << "\tList of branch departments: " << std::endl;
+			for (auto& iter_1 : currentNote->getBrDepList())
+			{
+				std::cout << "\t\tDepartment " << iter_1.first << ':' << std::endl;
+				for (auto& iter_2 : iter_1.second)
+				{
+					std::cout << "\t\t\tLessson: " << iter_2.first
+						<< " Teachers: " << iter_2.second << std::endl;
+				}
 			}
 		}
 	}

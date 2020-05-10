@@ -200,6 +200,11 @@ int main()
 					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
 					throw exception;
 				}
+				if (enteringString != "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 				std::cout << "You are going to add note to current database." << std::endl;
 				std::cout << "Answer the questions and follow the instructions..." << std::endl;
 				std::cout << std::endl;
@@ -214,6 +219,11 @@ int main()
 					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
 					throw exception;
 				}
+				if (enteringString != "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 				std::cout << "You are going to edit note of current database." << std::endl;
 				std::cout << "Answer the questions and follow the instructions..." << std::endl;
 				std::cout << std::endl;
@@ -226,6 +236,11 @@ int main()
 					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
 					throw exception;
 				}
+				if (enteringString != "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 				std::cout << "You are going to edit note of current database." << std::endl;
 				std::cout << "Answer the questions and follow the instructions..." << std::endl;
 				cf::deleteNote(CURRENT_OPENED_BASE);
@@ -235,6 +250,11 @@ int main()
 				if (!IS_OPENED_BASE)
 				{
 					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+					throw exception;
+				}
+				if (enteringString != "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
 					throw exception;
 				}
 				cf::printNotes(CURRENT_OPENED_BASE);
