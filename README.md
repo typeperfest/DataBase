@@ -28,6 +28,9 @@ _некоторые из них вызывают функции из прост�
 ```cpp
 int
 std::string std::string std::string int { { std::string { std::string int } } }
+std::string std::string std::string int { { std::string { std::string int } } }
+...
+std::string std::string std::string int { { std::string { std::string int } } }
 ```
 Коллекция определена следующим образом:
 ```cpp
