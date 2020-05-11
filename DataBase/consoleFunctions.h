@@ -22,4 +22,5 @@ namespace cf
 	void sortByName(std::vector<Faculty_Abstract*>& openedBase, const bool& direction);
 	void sortByBdNumber(std::vector<Faculty_Abstract*>& openedBase, const bool& direction);
 	std::vector<Faculty_Abstract*> chooseNotes(std::vector<Faculty_Abstract*>& openedBase, const bool& rule);
+	Faculty_Abstract* findNote(std::vector<Faculty_Abstract*>& openedBase, std::string& noteName);
 }

@@ -538,6 +538,7 @@ std::vector<Faculty_Abstract*> cf::chooseNotes(std::vector<Faculty_Abstract*>& o
 		std::string enteredString;
 		int deps;
 		std::cin >> enteredString;
+		std::cin.ignore();
 		while (true)
 		{
 			try
@@ -560,5 +561,17 @@ std::vector<Faculty_Abstract*> cf::chooseNotes(std::vector<Faculty_Abstract*>& o
 		}
 		std::cout << "Notes has been chosen successfully. " << std::endl;
 		return returningVector;
+	}
+}
+
+Faculty_Abstract* cf::findNote(std::vector<Faculty_Abstract*>& openedBase, std::string& noteName)
+{
+	int numberOfNotes = openedBase.size();
+	for (int i = 0; i < numberOfNotes; i++)
+	{
+		if (openedBase[i]->getName() == noteName)
+		{
+			return openedBase[i];
+		}
 	}
 }
