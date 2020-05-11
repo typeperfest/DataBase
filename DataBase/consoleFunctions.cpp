@@ -54,7 +54,7 @@ void cf::helpToKnowCommands()
 	std::cout << "           :bdnumber - sort by number of departments " << std::endl;
 	std::cout << "           you must choose one option" << DBJMP;
 	// Choose
-	std::cout << "choose <options> <string> - choose notes by rule of option" << std::endl;
+	std::cout << "choose <option>  - choose notes by rule of option in current opened database" << std::endl;
 	std::cout << "options:" << std::endl;
 	std::cout << "           :byles - choose by name of lesson this dep teaches" << std::endl;
 	std::cout << "           :mn - choose all notes had more than n deps " << std::endl;
@@ -65,7 +65,7 @@ void cf::helpToKnowCommands()
 	NOOP;
 }
 
-void cf::createDataBase(std::string& basename, bool type)
+void cf::createDataBase(std::string basename, bool type)
 {
 	std::string nameForCheck = "Bases\\" + basename + ".txt";
 	namespace fs = std::experimental::filesystem;
@@ -179,7 +179,7 @@ std::vector<Faculty_Abstract*> cf::openBase(std::string& basename)
 void cf::saveBase(std::vector<Faculty_Abstract*>& openedBase, std::string& basename)
 {
 	namespace fs = std::experimental::filesystem;
-	basename = "Bases/" + basename;
+	basename = "Bases/" + basename + ".txt";
 	bool isFileExist = fs::exists(fs::status(basename));
 	if (isFileExist)
 	{
@@ -473,4 +473,92 @@ void cf::sortByBdNumber(std::vector<Faculty_Abstract*>& openedBase, const bool& 
 	else std::sort(openedBase.begin(), openedBase.end(), ByNumberSortingFunction_dec);
 	std::cout << "Notes have been sorted successfully by numbers of departents. " << std::endl;
 	std::cout << "\t \"print_notes\" to check" << std::endl;
+}
+
+std::vector<Faculty_Abstract*> cf::chooseNotes(std::vector<Faculty_Abstract*>& openedBase, const bool& rule)
+{
+	// rule == true == by lesson
+	// rule == false == more than n deps
+	std::vector<Faculty_Abstract*> returningVector;
+	int numberOfNotes = openedBase.size();
+	if (rule)
+	{
+		std::cout << "Enter name of lesson needed in note to be choosen, without spaces" << std::endl;
+		BEGCOM;
+		std::string lesson;
+		std::cin >> lesson;
+		std::cin.ignore();
+		for (int i = 0; i < numberOfNotes; i++)
+		{
+			bool higherBreak;
+			std::map<std::string, std::map<std::string, int>> bigList = openedBase[i]->getList();
+			for (auto& iter_1 : bigList)
+			{
+				higherBreak = false;
+				std::map<std::string, int> smallList = iter_1.second;
+				for (auto& iter_2 : smallList)
+				{
+					if (iter_2.first == lesson)
+					{
+						returningVector.push_back(openedBase[i]);
+						higherBreak = true;
+						break;
+					}
+				}
+				if (higherBreak) break;
+			}
+			if (openedBase[i]->getType() == "0")
+			{
+				bool higherBreak;
+				std::map<std::string, std::map<std::string, int>> bigList = openedBase[i]->getBrDepList();
+				for (auto& iter_1 : bigList)
+				{
+					higherBreak = false;
+					std::map<std::string, int> smallList = iter_1.second;
+					for (auto& iter_2 : smallList)
+					{
+						if (iter_2.first == lesson)
+						{
+							returningVector.push_back(openedBase[i]);
+							higherBreak = true;
+							break;
+						}
+					}
+					if (higherBreak) break;
+				}
+			}
+		}
+		std::cout << "Notes has been chosen successfully. " << std::endl;
+		return returningVector;
+	}
+	else
+	{
+		std::cout << "Enter number of deaprtments in note to be choosen" << std::endl;
+		BEGCOM;
+		std::string enteredString;
+		int deps;
+		std::cin >> enteredString;
+		while (true)
+		{
+			try
+			{
+				deps = stoi(enteredString);
+				break;
+			}
+			catch (std::invalid_argument)
+			{
+				std::cout << " *ENTER A STRING CONVERTABLE TO NUMBER* " << std::endl;
+				std::cout << "  ...try again...  " << std::endl;
+			}
+		}
+		for (int i = 0; i < numberOfNotes; i++)
+		{
+			if (openedBase[i]->getNumOfDeps() > deps)
+			{
+				returningVector.push_back(openedBase[i]);
+			}
+		}
+		std::cout << "Notes has been chosen successfully. " << std::endl;
+		return returningVector;
+	}
 }

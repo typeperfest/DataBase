@@ -1,0 +1,6 @@
+5
+1 qwer sgfad 3 { { kaf1 { les1 2 } { les2 4 } } { kaf2 { cxzv 2 } { les3 3 } } { kaf3 { weq 2 } { eqw 2 } } }
+0 sfd fdsg 2 { { kaf1 { fdsg 2 } { les2 4 } } { kaf2 { cxzv 2 } { les3 3 } } } { }
+1 gdfs fsg 2 { { kaf1 { lfdb 2 } { les2 4 } } { kaf2 { cxzv 2 } { les3 3 } } }
+0 sadgfd fg 1 { { kaf1 { les1 2 } { les2 4 } } } { }
+1 asfdg fdsb 2 { { kaf1 { les1 2 } { les2 4 } } { kaf2 { cxzv 2 } { les3 3 } } }

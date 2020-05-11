@@ -51,3 +51,12 @@ public:
 		return "Error: there is no opened database";
 	}
 };
+
+class doesnt_chosen_exception : public SYSTEM_OF_BASE_CONTROL_EXCEPTION
+{
+public:
+	const char* what()
+	{
+		return "Error: there is no chosen notes";
+	}
+};

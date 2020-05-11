@@ -30,6 +30,8 @@ std::string getFirstWord(std::string& string)
 static std::vector<Faculty_Abstract*> CURRENT_OPENED_BASE;
 static std::string OPENED_BASE_FILENAME;
 static bool IS_OPENED_BASE = false;
+static std::vector<Faculty_Abstract*> CURRENT_CHOSEN_BASE;
+static bool IS_CHOSE_BASE = false;
 
 int main()
 {
@@ -311,11 +313,73 @@ int main()
 			}
 			else if (command == "choose")
 			{
-				
+				if (!IS_OPENED_BASE)
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_opened_exception;
+					throw exception;
+				}
+				if (enteringString == "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
+				std::string option;
+				option = getFirstWord(enteringString);
+				if (option[0] == ':')
+				{
+					if (getFirstWord(enteringString) != "")
+					{
+						SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+						throw exception;
+					}
+					if (option == ":byles")
+					{
+						std::cout << "You are going to choose notes in current data base\nby name "
+							<< "of lesson teached in this faculty" << std::endl;
+						std::cout << "Answer the questions and follow the instructions..." << std::endl;
+						CURRENT_CHOSEN_BASE = cf::chooseNotes(CURRENT_OPENED_BASE, true);
+						IS_CHOSE_BASE = true;
+					}
+					else if (option == ":mn")
+					{
+						std::cout << "You are going to choose notes in current data base\nwich have "
+							<< "more than determined number of departments. " << std::endl;
+						std::cout << "Answer the questions and follow the instructions..." << std::endl;
+						CURRENT_CHOSEN_BASE = cf::chooseNotes(CURRENT_OPENED_BASE, false);
+						IS_CHOSE_BASE = true;
+					}
+					else
+					{
+						SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+						throw exception;
+					}
+				}
+				else
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
 			}
 			else if (command == "transmit_new_base")
 			{
-
+				if (!IS_CHOSE_BASE)
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new doesnt_chosen_exception;
+					throw exception;
+				}
+				if (enteringString == "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+				}
+				std::string basename;
+				basename = getFirstWord(enteringString);
+				if (enteringString != "")
+				{
+					SYSTEM_OF_BASE_CONTROL_EXCEPTION* exception = new invalid_command_exception;
+					throw exception;
+				}
+				cf::createDataBase(basename, true);
+				cf::saveBase(CURRENT_CHOSEN_BASE, basename);
 			}
 			else if (command == "exit")
 			{

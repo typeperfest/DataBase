@@ -9,7 +9,7 @@
 namespace cf
 {
 	void helpToKnowCommands();
-	void createDataBase(std::string& basename, bool type);
+	void createDataBase(std::string basename, bool type);
 	void printBasesList();
 	void deleteBase(std::string& basename);
 	void renamebase(std::string& oldbasename, std::string& newbasename);
@@ -21,4 +21,5 @@ namespace cf
 	void printNotes(std::vector<Faculty_Abstract*>& openedBase);
 	void sortByName(std::vector<Faculty_Abstract*>& openedBase, const bool& direction);
 	void sortByBdNumber(std::vector<Faculty_Abstract*>& openedBase, const bool& direction);
+	std::vector<Faculty_Abstract*> chooseNotes(std::vector<Faculty_Abstract*>& openedBase, const bool& rule);
 }
